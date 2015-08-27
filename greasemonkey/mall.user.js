@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name        Ck's Mall Price Script
-// @namespace   org.ck,kol
+// @namespace   org.ck.kol
 // @include     http://www.kingdomofloathing.com/inventory.php*
 // @include     http://www.kingdomofloathing.com/closet.php*
-// @version     1.1
+// @include     http://127.0.0.1:60080/inventory.php*
+// @include     http://127.0.0.1:60080/closet.php*
+// @version     1.2
 // @grant       GM_xmlhttpRequest
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -52,7 +54,7 @@ if (window.location.pathname == "/inventory.php" || window.location.pathname == 
             {
                 GM_xmlhttpRequest({
                     method: "GET",
-                    url: "http://www.kingdomofloathing.com/mall.php?pudnuggler=" + encodeURIComponent("\"" + search + "\""),
+                    url: window.location.origin + "/mall.php?pudnuggler=" + encodeURIComponent("\"" + search + "\""),
                     onload: function(response)
                     {
                         doc = document.implementation.createHTMLDocument('');
