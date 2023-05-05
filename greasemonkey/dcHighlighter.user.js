@@ -1,12 +1,17 @@
 // ==UserScript==
 // @name        CK's Display Case Highlighter
 // @namespace   org.ck.kol
-// @include     http://www.kingdomofloathing.com/inventory.php*
-// @include     http://www.kingdomofloathing.com/managecollection.php
-// @include     http://www.kingdomofloathing.com/fight.php
-// @include     http://www.kingdomofloathing.com/closet.php*
-// @include     http://www.kingdomofloathing.com/mall.php*
-// @version     1
+// @include     https://www.kingdomofloathing.com/inventory.php*
+// @include     https://www.kingdomofloathing.com/managecollection.php
+// @include     https://www.kingdomofloathing.com/fight.php
+// @include     https://www.kingdomofloathing.com/closet.php*
+// @include     https://www.kingdomofloathing.com/mall.php*
+// @include     http://127.0.0.1:60080/inventory.php*
+// @include     http://127.0.0.1:60080/managecollection.php
+// @include     http://127.0.0.1:60080/fight.php
+// @include     http://127.0.0.1:60080/closet.php*
+// @include     http://127.0.0.1:60080/mall.php*
+// @version     2
 // @grant       GM_setValue
 // @grant       GM_getValue
 // @grant       GM_listValues
@@ -43,11 +48,13 @@ if (window.location.pathname == "/inventory.php" || window.location.pathname == 
         if (!isNaN(invIndex))
         {
             var invItem = invItems[invIndex];
-            invItem.style.background = "red";
+            var image = invItem.querySelector('.img').firstChild;
+
+            image.style.border = "3px solid red";
             
             if(GM_getValue(invItem.id.slice(2), false))
             {
-                invItem.style.background = "green";
+                image.style.border = "3px solid green";
             }
         }
     }
