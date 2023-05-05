@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name        Ck's Mall Price Script
+// @name        CK's Mall Price Script
 // @namespace   org.ck.kol
-// @include     http://www.kingdomofloathing.com/inventory.php*
-// @include     http://www.kingdomofloathing.com/closet.php*
+// @include     https://www.kingdomofloathing.com/inventory.php*
+// @include     https://www.kingdomofloathing.com/closet.php*
 // @include     http://127.0.0.1:60080/inventory.php*
 // @include     http://127.0.0.1:60080/closet.php*
-// @version     1.2
+// @version     1.3
 // @grant       GM_xmlhttpRequest
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -46,8 +46,16 @@ if (window.location.pathname == "/inventory.php" || window.location.pathname == 
             pr = GM_getValue(id, false);
             
             bs = invItem.querySelectorAll("[class=ircm]");
-            search = bs[0].firstChild.nodeValue;
-            tinyTexts[search] = bs[0].parentNode.childNodes[3];
+            search = "";
+            if (bs[0].firstChild.tagName === 'B')
+            {
+                search = bs[0].firstChild.firstChild.nodeValue;
+            }
+            else
+            {
+                search = bs[0].firstChild.nodeValue;
+            }
+            tinyTexts[search] = bs[0].parentNode.querySelector('font');
             ids[search] = id;
 
             if (pr === false)
@@ -94,7 +102,7 @@ if (window.location.pathname == "/inventory.php" || window.location.pathname == 
             else
             {
                 times = 1;
-                
+
                 if (bs[0].parentNode.childNodes[2].hasChildNodes())
                 {
                    times = parseInt(bs[0].parentNode.childNodes[2].childNodes[0].nodeValue.replace( /\D/g, ''));
